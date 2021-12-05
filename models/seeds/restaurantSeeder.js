@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Restaurantlist = require('../restaurant') // 載入 todo model
+const Restaurant = require('../restaurant') // 載入 model
 
 mongoose.connect('mongodb://localhost/restaurant_list') // 設定連線到 mongoDB
 
@@ -13,7 +13,7 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
   for (let i = 0; i < 10; i++) {
-    Restaurantlist.create({ name: 'name-' + i })
+    Restaurant.create({ name: 'name-' + i })
   }
   console.log('done')
 })

@@ -6,7 +6,7 @@ const port = 3000
 
 // require express-handlebars here
 const exphbs = require('express-handlebars')
-const restaurants = require('./restaurant.json')
+const Restaurant = require('./models/restaurant')
 
 mongoose.connect('mongodb://localhost/restaurant_list') // 設定連線到 mongoDB
 
@@ -22,16 +22,18 @@ db.once('open', () => {
 })
 
 // setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 // setting static files
 app.use(express.static('public'))
 
 // routes setting
 app.get('/', (req, res) => {
-  // past the restaurant data into 'index' partial template
-  res.render('index', { restaurants: restaurants.results })
+  Todo.find() // 取出 Todo model 裡的所有資料
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(todos => res.render('index', { restaurants })) // 將資料傳給 index 樣板
+    .catch(error => console.error(error)) // 錯誤處理
 })
 
 app.get('/search', (req, res) => {
