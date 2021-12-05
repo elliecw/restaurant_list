@@ -28,12 +28,26 @@ app.set('view engine', 'hbs')
 // setting static files
 app.use(express.static('public'))
 
+// setting body-parser
+app.use(express.urlencoded({ extended: true })) //改寫成 express
+
 // routes setting
 app.get('/', (req, res) => {
-  Todo.find() // 取出 Todo model 裡的所有資料
+  Restaurant.find() // 取出 Todo model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(todos => res.render('index', { restaurants })) // 將資料傳給 index 樣板
+    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
     .catch(error => console.error(error)) // 錯誤處理
+})
+
+app.get('restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  const name = req.body.name       // 從 req.body 拿出表單裡的 name 資料
+  return Restaurant.create({ name })     // 存入資料庫
+    .then(() => res.redirect('/')) // 新增完成後導回首頁
+    .catch(error => console.log(error))
 })
 
 app.get('/search', (req, res) => {
