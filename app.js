@@ -40,6 +40,14 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.error(error)) // 錯誤處理
 })
 
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id) 
+    .lean() 
+    .then(restaurants => res.render('edit', { restaurants })) 
+    .catch(error => console.error(error))
+})
+
 app.get('restaurants/new', (req, res) => {
   return res.render('new')
 })
@@ -48,6 +56,18 @@ app.post('/restaurants', (req, res) => {
   const name = req.body.name       // 從 req.body 拿出表單裡的 name 資料
   return Restaurant.create({ name })     // 存入資料庫
     .then(() => res.redirect('/')) // 新增完成後導回首頁
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  return Restaurant.findById(id)
+    .then(restaurant => {
+      restaurant.name = name
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
 
