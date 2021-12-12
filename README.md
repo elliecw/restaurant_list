@@ -2,7 +2,7 @@
 透過 Node.js + Express 建立我的餐廳清單， 可以瀏覽餐廳、查看詳細資訊、連結 Google 地圖。
 
 ## 專案畫面
-![Image text](https://github.com/elliecw/restaurant_list/blob/main/S2-3%20A1%20p1.png)
+![Image text](https://github.com/elliecw/restaurant_list/blob/main/S2-3%20A5%20p1.png)
 
 ## 功能 (Features)
 使用者可以在首頁看到所有餐廳與它們的簡單資料：
@@ -11,12 +11,13 @@
 3. 餐廳分類
 4. 餐廳評分
 
-使用者可以再點進去看餐廳的詳細資訊：
-1. 類別
-2. 地址
-3. 電話
-4. 描述
-5. 圖片
+使用者可以再進一步使用以下功能：
+1. 搜尋一家特定餐廳
+2. 新增一家餐廳
+3. 瀏覽一家餐廳的詳細資訊
+4. 瀏覽全部所有餐廳
+5. 修改一家餐廳的資訊
+6. 刪除一家餐廳
 
 ## 環境建置需求與安裝執行步驟 (Prerequisites and Installing)
 
@@ -54,6 +55,8 @@
 - Express-Handlebars 5.3.4
 - Bootstrap 4.3.1
 - Font-awesome 5.8.1
+- MongoDB
+- mongoose 6.1.1
 
 ## 專案開發人員 (Contributor)
 > [elliecw](https://github.com/elliecw)
