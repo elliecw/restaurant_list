@@ -1,28 +1,29 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const Restaurant = require('./models/restaurant')
 
 const routes = require('./routes')
+require('./config/mongoose')
 
 // 引入 home 模組程式碼
 const home = require('./modules/home')
 // 將網址結構符合 / 字串的 request 導向 home 模組 
 router.use('/', home)
 
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
-const db = mongoose.connection
+// mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
+// const db = mongoose.connection
 
-db.on('error', () => {
-  console.log('mongodb error!')
-})
+// db.on('error', () => {
+//   console.log('mongodb error!')
+// })
 
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
+// db.once('open', () => {
+//   console.log('mongodb connected!')
+// })
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
