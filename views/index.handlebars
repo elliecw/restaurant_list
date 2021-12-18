@@ -11,15 +11,21 @@
             aria-describedby="search-button" value="{{keywords}}" />
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-          </div>
         </div>
-      </form>
-      <div class="text-right">
-        <a href="/restaurants/new"><button class="btn btn-primary">新增餐廳</button></a>
-      </div>
+        <div class="ml-1">
+          <select class="form-control" id="sort" name="sort">
+            <option>A > Z</option>
+            <option>Z > A</option>
+            <option>類別</option>
+            <option>地區</option>
+            <option>評分</option>
+          </select>
+        </div>
+        </form>
     </div>
   </div>
 </div>
+
 
 <!-- restaurant list -->
 <div class="container mt-5">
