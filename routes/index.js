@@ -9,9 +9,9 @@ const Restaurant = require('./modules/restaurant')
 const users = require('./modules/users')  // add this
 
 // 將網址結構符合 /restaurants 字串開頭的 request 導向 restaurants 模組 
-router.use("/", index)
-router.use('/restaurants', Restaurant)
-
+const { authenticator } = require('../middleware/auth')
+router.use('/restaurants', authenticator, Restaurant)
 router.use('/users', users)  // add this
+router.use('/', authenticator, index)
 
 module.exports = router
