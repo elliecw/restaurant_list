@@ -31,7 +31,7 @@ module.exports = app => {
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK,
     profileFields: ['email', 'displayName']
-  }), (accessToken, refreshToken, profile, done) => {
+  }, (accessToken, refreshToken, profile, done) => {
     const { name, email } = profile._json
     User.findOne({ email })
       .then(user => {
@@ -49,6 +49,7 @@ module.exports = app => {
           .catch(err => done(err, false))
       })
   })
+  )
 
 passport.serializeUser((user, done) => {
   done(null, user.id)
