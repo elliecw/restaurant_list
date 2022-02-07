@@ -1,14 +1,3 @@
-// const mongoose = require('mongoose')
-// const Restaurant = require('../restaurant')
-// const restaurantList = require('../../restaurant.json').results
-// const db = require('../../config/mongoose')
-
-// db.once('open', () => {
-//   Restaurant.create(restaurantList)
-//     .then(() => console.log('restaurantSeeder success'))
-//     .catch(error => console.log(error))
-// })
-
 const bcrypt = require('bcryptjs')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -16,11 +5,19 @@ if (process.env.NODE_ENV !== 'production') {
 const Restaurant = require('../restaurant')
 const User = require('../user')
 const db = require('../../config/mongoose')
-const SEED_USER = {
-  name: 'user1',
-  email: 'user1@example.com',
-  password: '12345678'
-}
+const SEED_USER = [
+  {
+    name: 'user1',
+    email: 'user1@example.com',
+    password: '12345678',
+    restaurantId: [0, 1, 2]
+  }, {
+    name: 'user2',
+    email: 'user2@example.com',
+    password: '12345678',
+    restaurantId: [3, 4, 5]
+  }]
+
 db.once('open', () => {
   bcrypt
     .genSalt(10)
@@ -31,14 +28,15 @@ db.once('open', () => {
       password: hash
     }))
     .then(user => {
-      const userId = user._id
-      return Promise.all(Array.from(
-        { length: 10 },
-        (_, i) => Todo.create({ name: `name-${i}`, userId })
-      ))
-    })
-    .then(() => {
-      console.log('done.')
-      process.exit()
+      const seedRestaurant = []
+      SEED_USER.restaurantId.forEach(index => {
+        restaurantList[index].userId = user._id
+        seedRestaurant.push(restaurantList[index])
+      })
+      return Restaurant.create(seedRestaurant)
     })
 })
+  .then(() => {
+    console.log('done.')
+    process.exit()
+  })
